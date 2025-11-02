@@ -118,7 +118,8 @@ fun <T> SwipeToDelete(
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .background(Color.Red.copy(alpha = minOf(-offsetX / swipeThreshold, 1f))),
+                .background(Color.Red.copy(alpha = minOf(-offsetX / swipeThreshold, 1f)))
+                .padding(end = 16.dp),
             contentAlignment = Alignment.CenterEnd
         ) {
             Icon(

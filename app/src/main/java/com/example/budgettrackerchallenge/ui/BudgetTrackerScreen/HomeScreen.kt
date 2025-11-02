@@ -37,14 +37,14 @@ fun HomeScreen(
                 )
             }
         ) { innerPadding ->
-            TransactionsList(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                records = records,
-                onDelete = { viewModel.removeRecord(it) }
-            )
-        }
+
+                TransactionsList(
+                    modifier = Modifier.padding(innerPadding),
+                    records = records,
+                    onDelete = { viewModel.removeRecord(it) }
+                )
+            }
+
 
         if (showBottomSheet) {
             ModalBottomSheet(
