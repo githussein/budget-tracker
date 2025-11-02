@@ -1,5 +1,6 @@
 package com.example.budgettrackerchallenge.ui.BudgetTrackerScreen
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.budgettrackerchallenge.ui.components.BudgetTopBar
+import com.example.budgettrackerchallenge.ui.components.IncomeExpensePieChart
 import com.example.budgettrackerchallenge.ui.theme.BudgetTrackerChallengeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,6 +26,9 @@ fun HomeScreen(
 ) {
     val records by viewModel.records.collectAsState()
     val totalBudget by viewModel.totalBudget.collectAsState()
+    val totalIncome by viewModel.totalIncome.collectAsState()
+    val totalExpense by viewModel.totalExpense.collectAsState()
+
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -38,12 +43,22 @@ fun HomeScreen(
             }
         ) { innerPadding ->
 
+            Column(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize()
+            ) {
+                IncomeExpensePieChart(
+                    income = totalIncome,
+                    expense = totalExpense
+                )
+
                 TransactionsList(
-                    modifier = Modifier.padding(innerPadding),
                     records = records,
                     onDelete = { viewModel.removeRecord(it) }
                 )
             }
+        }
 
 
         if (showBottomSheet) {

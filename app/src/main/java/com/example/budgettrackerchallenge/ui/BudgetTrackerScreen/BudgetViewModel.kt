@@ -18,6 +18,12 @@ class BudgetViewModel @Inject constructor(
     val records = repository.getAllTransactions()
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
+    val totalIncome = repository.getTotalIncome()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, 0.0)
+
+    val totalExpense = repository.getTotalExpense()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, 0.0)
+
     val totalBudget = repository.getBalance()
         .stateIn(viewModelScope, SharingStarted.Eagerly, 0.0)
 

@@ -40,7 +40,7 @@ fun TransactionListItem(record: TransactionRecord) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 10.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -78,12 +78,14 @@ fun TransactionListItem(record: TransactionRecord) {
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.outline
         )
-    }
 
-    HorizontalDivider(
-        thickness = 0.6.dp,
-        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
-    )
+        Spacer(Modifier.height(4.dp))
+
+        HorizontalDivider(
+            thickness = 0.6.dp,
+            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+        )
+    }
 }
 
 @Composable
