@@ -38,7 +38,6 @@ class TransactionRepositoryImplTest {
         db.close()
     }
 
-
     @Test
     fun `add transaction and get all transactions`() = runBlocking {
         val record = TransactionRecord(description = "Test Income", amount =  100.0, type =  TransactionType.INCOME)
@@ -51,4 +50,27 @@ class TransactionRepositoryImplTest {
         Assert.assertEquals(record.type, all[0].type)
     }
 
+    @Test
+    fun `delete transaction removes it from the database`() = runBlocking {
+        val record = TransactionRecord(
+            type = TransactionType.EXPENSE,
+            amount = 50.0,
+            description = "Test Expense"
+        )
+        repository.addTransaction(record)
+
+        repository.deleteTransaction(record.id)
+
+        val all = repository.getAllTransactions().first()
+        Assert.assertEquals(0, all.size)
+    }
+
+    @Test
+    fun `get balance calculates income minus expenses`() = runBlocking {
+        repository.addTransaction(TransactionRecord(description = "Income", amount = 200.0, type = TransactionType.INCOME))
+        repository.addTransaction(TransactionRecord(description = "Expense", amount =  50.0, type = TransactionType.EXPENSE))
+
+        val balance = repository.getBalance().first()
+        Assert.assertEquals(150.0, balance, 0.001)
+    }
 }
