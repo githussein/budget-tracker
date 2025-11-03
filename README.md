@@ -12,18 +12,17 @@
 ## Overview
 
 Budget Tracker is an Android app to track daily **income** and **expenses**.  
-It features a clean and reactive UI with **Jetpack Compose**, persistent storage using **Room**, and follows **MVVM** architecture with **Hilt** for dependency injection.
 
 ---
 
 ## Features
 
-- Add, delete, and view income and expense transactions  
-- Automatically calculate current balance  
-- Data persisted locally via Room  
-- Reactive UI with StateFlow  
-- Unit tests for ViewModel and Repository
-- Pie chart visualization of Income vs Expenses  
+- Add, delete, and view income and expense transactions
+- Automatically calculate current balance
+- Search your transaction records
+- Data persisted locally  
+- Pie chart visualization of Income vs Expenses
+- Dark mode toggle
 
 ---
 
@@ -38,8 +37,6 @@ It features a clean and reactive UI with **Jetpack Compose**, persistent storage
 - **Testing:** JUnit, kotlinx-coroutines-test  
 
 ---
-
-## Project Structure
 
 ## Project Structure
 
@@ -66,4 +63,18 @@ It features a clean and reactive UI with **Jetpack Compose**, persistent storage
 
 ```bash
 git clone https://github.com/githussein/BudgetTrackerChallenge.git
+```
+
+2. **Build requirements:**
+- Android SDK 34+ (Target SDK 36)
+- Java 17
+- Kotlin + Jetpack Compose
+
+3. **Key plugins and libraries used:**  
+- Dagger Hilt for Dependency Injection  
+- Room for local database  
+- Jetpack Compose for UI  
+- Kotlin Symbol Processing (KSP)
+
+All necessary dependencies are managed in the `build.gradle` file. Modernbuild files approaches like toml, ksp, and kotlin dsl are adopted in this project.
 
