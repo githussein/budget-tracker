@@ -22,7 +22,8 @@ It features a clean and reactive UI with **Jetpack Compose**, persistent storage
 - Automatically calculate current balance  
 - Data persisted locally via Room  
 - Reactive UI with StateFlow  
-- Unit tests for ViewModel and Repository  
+- Unit tests for ViewModel and Repository
+- Pie chart visualization of Income vs Expenses  
 
 ---
 
@@ -52,7 +53,7 @@ It features a clean and reactive UI with **Jetpack Compose**, persistent storage
 
 - `ui/`  
   - `BudgetTrackerScreen/` → HomeScreen, TransactionsList, ViewModel  
-  - `components/` → Reusable composables  
+  - `components/` → Reusable composables (TransactionListItem, BudgetTopBar, etc.)  
   - `utils/` → Extensions (currency, date formatting)  
 
 - `di/` → Hilt modules
@@ -64,5 +65,5 @@ It features a clean and reactive UI with **Jetpack Compose**, persistent storage
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/<your-username>/BudgetTrackerChallenge.git
+git clone https://github.com/githussein/BudgetTrackerChallenge.git
 
