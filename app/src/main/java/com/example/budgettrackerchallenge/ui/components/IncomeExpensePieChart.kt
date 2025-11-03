@@ -1,5 +1,7 @@
 package com.example.budgettrackerchallenge.ui.components
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,8 +31,17 @@ fun IncomeExpensePieChart(
     expense: Double,
 ) {
     val total = income + expense
-    val incomeAngle = if (total > 0) ((income / total * 360).toFloat()) else 0f
-    val expenseAngle = if (total > 0) ((expense / total * 360).toFloat()) else 0f
+
+    val animatedIncomeAngle by animateFloatAsState(
+        targetValue = if (total > 0) ((income / total * 360).toFloat()) else 0f,
+        animationSpec = tween(durationMillis = 500)
+    )
+
+    val animatedExpenseAngle by animateFloatAsState(
+        targetValue = if (total > 0) ((expense / total * 360).toFloat()) else 0f,
+        animationSpec = tween(durationMillis = 500)
+    )
+
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,15 +58,15 @@ fun IncomeExpensePieChart(
             drawArc(
                 color = Color(0xFF2E7D32),
                 startAngle = -90f,
-                sweepAngle = incomeAngle,
+                sweepAngle = animatedIncomeAngle,
                 useCenter = true
             )
 
             // expense slice
             drawArc(
                 color = Color(0xFFC62828),
-                startAngle = -90f + incomeAngle,
-                sweepAngle = expenseAngle,
+                startAngle = -90f + animatedIncomeAngle,
+                sweepAngle = animatedExpenseAngle,
                 useCenter = true
             )
 
