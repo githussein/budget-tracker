@@ -1,11 +1,7 @@
 package com.example.budgettrackerchallenge.ui.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -27,6 +23,7 @@ fun BudgetTopBar(
         title = {
             Column {
                 Text(stringResource(R.string.balance), style = MaterialTheme.typography.titleMedium)
+
                 Text(
                     text = totalBudget.toCurrency(),
                     style = MaterialTheme.typography.titleLarge,
@@ -34,10 +31,5 @@ fun BudgetTopBar(
                 )
             }
         },
-        actions = {
-            IconButton(onClick = onAddClick) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
-            }
-        }
     )
 }

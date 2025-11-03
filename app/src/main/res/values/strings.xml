@@ -4,6 +4,12 @@
     <string name="income">Income</string>
     <string name="expense">Expense</string>
     <string name="no_transactions">No transactions yet. Tap + to add one!</string>
+    <string name="add_income">Add income</string>
+    <string name="add_expense">Add expense</string>
+    <string name="income_amount">Income amount</string>
+    <string name="expense_amount">Amount</string>
+    <string name="amount">Amount</string>
+    <string name="description">Description</string>
     <string name="add_new_record">Add new record</string>
     <string name="income_vs_expense">Income vs Expenses</string>
     <string name="submit">Submit</string>
