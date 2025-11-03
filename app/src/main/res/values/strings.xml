@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Budget Tracker Challenge</string>
+    <string name="balance">Balance</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="no_transactions">No transactions yet. Tap + to add one!</string>
+    <string name="add_new_record">Add new record</string>
+    <string name="income_vs_expense">Income vs Expenses</string>
+    <string name="submit">Submit</string>
 </resources>

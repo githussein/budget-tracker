@@ -10,7 +10,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.example.budgettrackerchallenge.R
 import com.example.budgettrackerchallenge.ui.utils.toCurrency
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,7 +26,7 @@ fun BudgetTopBar(
     TopAppBar(
         title = {
             Column {
-                Text("Balance", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.balance), style = MaterialTheme.typography.titleMedium)
                 Text(
                     text = totalBudget.toCurrency(),
                     style = MaterialTheme.typography.titleLarge,

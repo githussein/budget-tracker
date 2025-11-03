@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.budgettrackerchallenge.R
 import com.example.budgettrackerchallenge.domain.model.TransactionRecord
 import com.example.budgettrackerchallenge.ui.components.SwipeToDelete
 import com.example.budgettrackerchallenge.ui.components.TransactionListItem
@@ -27,7 +29,7 @@ fun TransactionsList(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "No transactions yet",
+                text = stringResource(R.string.no_transactions),
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Gray
             )

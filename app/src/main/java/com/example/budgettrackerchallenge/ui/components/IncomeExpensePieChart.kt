@@ -22,7 +22,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.budgettrackerchallenge.R
 import com.example.budgettrackerchallenge.ui.theme.ExpenseRed
 import com.example.budgettrackerchallenge.ui.theme.IncomeGreen
 import com.example.budgettrackerchallenge.ui.utils.toCurrency
@@ -63,7 +65,7 @@ fun IncomeExpensePieChart(
             .padding(16.dp)
     ) {
         Text(
-            "Income vs Expenses",
+            stringResource(R.string.income_vs_expense),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(bottom = 8.dp)
         )
@@ -95,8 +97,8 @@ fun IncomeExpensePieChart(
 
         Spacer(modifier = Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            LegendItem(color = IncomeGreen, label = "Income: ${animatedIncome.toDouble().toCurrency()}")
-            LegendItem(color = ExpenseRed, label = "Expense: ${animatedExpense.toDouble().toCurrency()}")
+            LegendItem(color = IncomeGreen, label = "${stringResource(R.string.income)}: ${animatedIncome.toDouble().toCurrency()}")
+            LegendItem(color = ExpenseRed, label = "${stringResource(R.string.expense)}: ${animatedExpense.toDouble().toCurrency()}")
         }
     }
 }
