@@ -23,6 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.budgettrackerchallenge.ui.theme.ExpenseRed
+import com.example.budgettrackerchallenge.ui.theme.IncomeGreen
 import com.example.budgettrackerchallenge.ui.utils.toCurrency
 
 @Composable
@@ -69,7 +71,7 @@ fun IncomeExpensePieChart(
         Canvas(modifier = Modifier.size(120.dp)) {
             // income slice
             drawArc(
-                color = Color(0xFF2E7D32),
+                color = IncomeGreen,
                 startAngle = -90f,
                 sweepAngle = animatedIncomeAngle,
                 useCenter = true
@@ -77,7 +79,7 @@ fun IncomeExpensePieChart(
 
             // expense slice
             drawArc(
-                color = Color(0xFFC62828),
+                color = ExpenseRed,
                 startAngle = -90f + animatedIncomeAngle,
                 sweepAngle = animatedExpenseAngle,
                 useCenter = true
@@ -93,8 +95,8 @@ fun IncomeExpensePieChart(
 
         Spacer(modifier = Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            LegendItem(color = Color(0xFF2E7D32), label = "Income: ${animatedIncome.toDouble().toCurrency()}")
-            LegendItem(color = Color(0xFFC62828), label = "Expense: ${animatedExpense.toDouble().toCurrency()}")
+            LegendItem(color = IncomeGreen, label = "Income: ${animatedIncome.toDouble().toCurrency()}")
+            LegendItem(color = ExpenseRed, label = "Expense: ${animatedExpense.toDouble().toCurrency()}")
         }
     }
 }

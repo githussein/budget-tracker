@@ -33,6 +33,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.budgettrackerchallenge.domain.model.TransactionRecord
 import com.example.budgettrackerchallenge.domain.model.TransactionType
+import com.example.budgettrackerchallenge.ui.theme.ExpenseRed
+import com.example.budgettrackerchallenge.ui.theme.IncomeGreen
 import com.example.budgettrackerchallenge.ui.utils.toFormattedString
 
 @Composable
@@ -59,9 +61,9 @@ fun TransactionListItem(record: TransactionRecord) {
                 "+${record.amount}"
 
             val amountColor = if (record.type == TransactionType.EXPENSE)
-                Color(0xFFD32F2F)
+                ExpenseRed
             else
-                Color(0xFF2E7D32)
+                IncomeGreen
 
             Text(
                 amountText,
