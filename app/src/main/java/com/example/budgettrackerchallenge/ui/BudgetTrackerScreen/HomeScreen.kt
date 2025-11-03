@@ -28,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.budgettrackerchallenge.ui.components.BudgetTopBar
+import com.example.budgettrackerchallenge.ui.components.BalanceTopBar
 import com.example.budgettrackerchallenge.ui.components.IncomeExpensePieChart
 import com.example.budgettrackerchallenge.ui.theme.BudgetTrackerChallengeTheme
 import com.example.budgettrackerchallenge.ui.theme.ExpenseRed
@@ -48,13 +48,20 @@ fun HomeScreen(
     var isIncomeSheet by remember { mutableStateOf(true) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-    BudgetTrackerChallengeTheme {
+    var darkModeEnabled by remember { mutableStateOf(false) }
+
+
+    BudgetTrackerChallengeTheme (darkTheme = darkModeEnabled) {
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                BudgetTopBar(
+                BalanceTopBar(
                     totalBudget = totalBudget,
-                    onAddClick = { showBottomSheet = true }
+                    isDarkMode = darkModeEnabled,
+                    onToggleDarkMode = { darkModeEnabled = !darkModeEnabled }
                 )
             },
             floatingActionButton = {
@@ -119,4 +126,5 @@ fun HomeScreen(
             }
         }
     }
+}
 }
