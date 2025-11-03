@@ -29,8 +29,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.budgettrackerchallenge.domain.model.TransactionRecord
 import com.example.budgettrackerchallenge.domain.model.TransactionType
 import com.example.budgettrackerchallenge.ui.components.BalanceTopBar
+import com.example.budgettrackerchallenge.ui.components.EmptyTransactionsView
 import com.example.budgettrackerchallenge.ui.components.IncomeExpensePieChart
 import com.example.budgettrackerchallenge.ui.components.RecordSearchField
 import com.example.budgettrackerchallenge.ui.components.RecordsHeader
@@ -67,6 +69,13 @@ fun HomeScreen(
             record.description.contains(searchQuery, ignoreCase = true)
         }
 
+    val uiState = remember(filteredRecords) {
+        if (filteredRecords.isEmpty()) {
+            TransactionUiState.Empty
+        } else {
+            TransactionUiState.HasData(filteredRecords)
+        }
+    }
 
     var darkModeEnabled by remember { mutableStateOf(false) }
 
@@ -136,10 +145,19 @@ fun HomeScreen(
 
                     RecordSearchField(query = searchQuery) { searchQuery = it }
 
-                    TransactionsList(
-                        records = filteredRecords,
-                        onDelete = { viewModel.removeRecord(it) }
-                    )
+
+                    when (uiState) {
+                        is TransactionUiState.Empty -> {
+                            EmptyTransactionsView()
+                        }
+
+                        is TransactionUiState.HasData -> {
+                            TransactionsList(
+                                records = uiState.records,
+                                onDelete = { viewModel.removeRecord(it) }
+                            )
+                        }
+                    }
                 }
             }
 
@@ -158,4 +176,9 @@ fun HomeScreen(
             }
         }
     }
+}
+
+sealed class TransactionUiState {
+    object Empty : TransactionUiState()
+    data class HasData(val records: List<TransactionRecord>) : TransactionUiState()
 }
