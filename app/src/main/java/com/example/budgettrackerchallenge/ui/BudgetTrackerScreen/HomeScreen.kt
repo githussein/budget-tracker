@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.budgettrackerchallenge.domain.model.TransactionType
 import com.example.budgettrackerchallenge.ui.components.BalanceTopBar
 import com.example.budgettrackerchallenge.ui.components.IncomeExpensePieChart
+import com.example.budgettrackerchallenge.ui.components.RecordSearchField
 import com.example.budgettrackerchallenge.ui.components.RecordsHeader
 import com.example.budgettrackerchallenge.ui.theme.BudgetTrackerChallengeTheme
 import com.example.budgettrackerchallenge.ui.theme.ExpenseRed
@@ -51,12 +52,21 @@ fun HomeScreen(
     var isIncomeSheet by remember { mutableStateOf(true) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
+    var searchQuery by remember { mutableStateOf("") }
     var filter by remember { mutableStateOf<TransactionType?>(null) }
-    val filteredRecords = when (filter) {
-        TransactionType.INCOME -> records.filter { it.type == TransactionType.INCOME }
-        TransactionType.EXPENSE -> records.filter { it.type == TransactionType.EXPENSE }
-        else -> records
-    }
+
+    val filteredRecords = records
+        .filter { record ->
+            when (filter) {
+                TransactionType.INCOME -> record.type == TransactionType.INCOME
+                TransactionType.EXPENSE -> record.type == TransactionType.EXPENSE
+                else -> true
+            }
+        }
+        .filter { record ->
+            record.description.contains(searchQuery, ignoreCase = true)
+        }
+
 
     var darkModeEnabled by remember { mutableStateOf(false) }
 
@@ -123,6 +133,8 @@ fun HomeScreen(
                         filter = filter,
                         onFilterChange = { filter = it }
                     )
+
+                    RecordSearchField(query = searchQuery) { searchQuery = it }
 
                     TransactionsList(
                         records = filteredRecords,

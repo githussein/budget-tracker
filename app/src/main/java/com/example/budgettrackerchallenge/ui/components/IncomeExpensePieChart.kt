@@ -38,23 +38,23 @@ fun IncomeExpensePieChart(
 
     val animatedIncome by animateFloatAsState(
         targetValue = income.toFloat(),
-        animationSpec = tween(durationMillis = 500)
+        animationSpec = tween(durationMillis = 700)
     )
 
     val animatedExpense by animateFloatAsState(
         targetValue = expense.toFloat(),
-        animationSpec = tween(durationMillis = 500)
+        animationSpec = tween(durationMillis = 700)
     )
 
 
     val animatedIncomeAngle by animateFloatAsState(
         targetValue = if (total > 0) ((income / total * 360).toFloat()) else 0f,
-        animationSpec = tween(durationMillis = 500)
+        animationSpec = tween(durationMillis = 700)
     )
 
     val animatedExpenseAngle by animateFloatAsState(
         targetValue = if (total > 0) ((expense / total * 360).toFloat()) else 0f,
-        animationSpec = tween(durationMillis = 500)
+        animationSpec = tween(durationMillis = 700)
     )
 
 
