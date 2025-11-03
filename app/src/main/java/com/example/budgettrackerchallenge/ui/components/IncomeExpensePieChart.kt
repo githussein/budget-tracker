@@ -32,6 +32,17 @@ fun IncomeExpensePieChart(
 ) {
     val total = income + expense
 
+    val animatedIncome by animateFloatAsState(
+        targetValue = income.toFloat(),
+        animationSpec = tween(durationMillis = 500)
+    )
+
+    val animatedExpense by animateFloatAsState(
+        targetValue = expense.toFloat(),
+        animationSpec = tween(durationMillis = 500)
+    )
+
+
     val animatedIncomeAngle by animateFloatAsState(
         targetValue = if (total > 0) ((income / total * 360).toFloat()) else 0f,
         animationSpec = tween(durationMillis = 500)
@@ -45,7 +56,9 @@ fun IncomeExpensePieChart(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth().padding(16.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
     ) {
         Text(
             "Income vs Expenses",
@@ -80,8 +93,8 @@ fun IncomeExpensePieChart(
 
         Spacer(modifier = Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            LegendItem(color = Color(0xFF2E7D32), label = "Income: ${income.toCurrency()}")
-            LegendItem(color = Color(0xFFC62828), label = "Expense: ${expense.toCurrency()}")
+            LegendItem(color = Color(0xFF2E7D32), label = "Income: ${animatedIncome.toDouble().toCurrency()}")
+            LegendItem(color = Color(0xFFC62828), label = "Expense: ${animatedExpense.toDouble().toCurrency()}")
         }
     }
 }
