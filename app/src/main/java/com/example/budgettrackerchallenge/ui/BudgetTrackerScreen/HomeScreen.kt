@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,7 +38,7 @@ import com.example.budgettrackerchallenge.ui.theme.IncomeGreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    viewModel: BudgetViewModel = hiltViewModel()
+    viewModel: IBudgetViewModel = hiltViewModel<BudgetViewModel>()
 ) {
     val records by viewModel.records.collectAsState()
     val totalBudget by viewModel.totalBudget.collectAsState()
@@ -75,6 +76,7 @@ fun HomeScreen(
                             isIncomeSheet = true
                             showBottomSheet = true
                         },
+                        modifier = Modifier.testTag("IncomeFAB"),
                         containerColor = IncomeGreen,
                         contentColor = Color.White,
                         shape = CircleShape
@@ -90,6 +92,7 @@ fun HomeScreen(
                             isIncomeSheet = false
                             showBottomSheet = true
                         },
+                        modifier = Modifier.testTag("ExpenseFAB"),
                         containerColor = ExpenseRed,
                         contentColor = Color.White,
                         shape = CircleShape
@@ -116,7 +119,8 @@ fun HomeScreen(
         if (showBottomSheet) {
             ModalBottomSheet(
                 onDismissRequest = { showBottomSheet = false },
-                sheetState = sheetState
+                sheetState = sheetState,
+                modifier = Modifier.testTag("AddTransactionSheet")
             ) {
                 AddTransactionBottomSheet(
                     onDismiss = { showBottomSheet = false },
