@@ -29,8 +29,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.budgettrackerchallenge.domain.model.TransactionType
 import com.example.budgettrackerchallenge.ui.components.BalanceTopBar
 import com.example.budgettrackerchallenge.ui.components.IncomeExpensePieChart
+import com.example.budgettrackerchallenge.ui.components.RecordsHeader
 import com.example.budgettrackerchallenge.ui.theme.BudgetTrackerChallengeTheme
 import com.example.budgettrackerchallenge.ui.theme.ExpenseRed
 import com.example.budgettrackerchallenge.ui.theme.IncomeGreen
@@ -49,86 +51,99 @@ fun HomeScreen(
     var isIncomeSheet by remember { mutableStateOf(true) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
+    var filter by remember { mutableStateOf<TransactionType?>(null) }
+    val filteredRecords = when (filter) {
+        TransactionType.INCOME -> records.filter { it.type == TransactionType.INCOME }
+        TransactionType.EXPENSE -> records.filter { it.type == TransactionType.EXPENSE }
+        else -> records
+    }
+
     var darkModeEnabled by remember { mutableStateOf(false) }
 
 
-    BudgetTrackerChallengeTheme (darkTheme = darkModeEnabled) {
+    BudgetTrackerChallengeTheme(darkTheme = darkModeEnabled) {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            topBar = {
-                BalanceTopBar(
-                    totalBudget = totalBudget,
-                    isDarkMode = darkModeEnabled,
-                    onToggleDarkMode = { darkModeEnabled = !darkModeEnabled }
-                )
-            },
-            floatingActionButton = {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().padding(end = 8.dp)
-                ) {
-                    FloatingActionButton(
-                        onClick = {
-                            isIncomeSheet = true
-                            showBottomSheet = true
-                        },
-                        modifier = Modifier.testTag("IncomeFAB"),
-                        containerColor = IncomeGreen,
-                        contentColor = Color.White,
-                        shape = CircleShape
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                topBar = {
+                    BalanceTopBar(
+                        totalBudget = totalBudget,
+                        isDarkMode = darkModeEnabled,
+                        onToggleDarkMode = { darkModeEnabled = !darkModeEnabled }
+                    )
+                },
+                floatingActionButton = {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 8.dp)
                     ) {
-                        Text("＋", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                    }
+                        FloatingActionButton(
+                            onClick = {
+                                isIncomeSheet = true
+                                showBottomSheet = true
+                            },
+                            modifier = Modifier.testTag("IncomeFAB"),
+                            containerColor = IncomeGreen,
+                            contentColor = Color.White,
+                            shape = CircleShape
+                        ) {
+                            Text("＋", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        }
 
-                    Spacer(modifier = Modifier.width(16.dp))
+                        Spacer(modifier = Modifier.width(16.dp))
 
-
-                    FloatingActionButton(
-                        onClick = {
-                            isIncomeSheet = false
-                            showBottomSheet = true
-                        },
-                        modifier = Modifier.testTag("ExpenseFAB"),
-                        containerColor = ExpenseRed,
-                        contentColor = Color.White,
-                        shape = CircleShape
-                    ) {
-                        Text("—", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        FloatingActionButton(
+                            onClick = {
+                                isIncomeSheet = false
+                                showBottomSheet = true
+                            },
+                            modifier = Modifier.testTag("ExpenseFAB"),
+                            containerColor = ExpenseRed,
+                            contentColor = Color.White,
+                            shape = CircleShape
+                        ) {
+                            Text("—", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        }
                     }
                 }
-            }
-        ) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize()
-            ) {
-                IncomeExpensePieChart(income = totalIncome, expense = totalExpense)
+            ) { innerPadding ->
+                Column(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize()
+                ) {
+                    IncomeExpensePieChart(income = totalIncome, expense = totalExpense)
 
-                TransactionsList(
-                    records = records,
-                    onDelete = { viewModel.removeRecord(it) }
-                )
-            }
-        }
+                    RecordsHeader(
+                        filter = filter,
+                        onFilterChange = { filter = it }
+                    )
 
-        if (showBottomSheet) {
-            ModalBottomSheet(
-                onDismissRequest = { showBottomSheet = false },
-                sheetState = sheetState,
-                modifier = Modifier.testTag("AddTransactionSheet")
-            ) {
-                AddTransactionBottomSheet(
-                    onDismiss = { showBottomSheet = false },
-                    onSubmit = { newRecord -> viewModel.addRecord(newRecord) },
-                    isIncome = isIncomeSheet
-                )
+                    TransactionsList(
+                        records = filteredRecords,
+                        onDelete = { viewModel.removeRecord(it) }
+                    )
+                }
+            }
+
+            if (showBottomSheet) {
+                ModalBottomSheet(
+                    onDismissRequest = { showBottomSheet = false },
+                    sheetState = sheetState,
+                    modifier = Modifier.testTag("AddTransactionSheet")
+                ) {
+                    AddTransactionBottomSheet(
+                        onDismiss = { showBottomSheet = false },
+                        onSubmit = { newRecord -> viewModel.addRecord(newRecord) },
+                        isIncome = isIncomeSheet
+                    )
+                }
             }
         }
     }
-}
 }
