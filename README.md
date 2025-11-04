@@ -13,6 +13,8 @@
 
 Budget Tracker is an Android app to track daily **income** and **expenses**.  
 
+<img src="app/src/main/res/img.png" alt="Home Screen" width="300"/>
+
 ---
 
 ## Features
