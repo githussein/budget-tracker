@@ -31,14 +31,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.budgettrackerchallenge.domain.model.TransactionRecord
 import com.example.budgettrackerchallenge.domain.model.TransactionType
+import com.example.budgettrackerchallenge.ui.BudgetTrackerScreen.components.RecordsHeader
 import com.example.budgettrackerchallenge.ui.components.BalanceTopBar
 import com.example.budgettrackerchallenge.ui.components.EmptyTransactionsView
 import com.example.budgettrackerchallenge.ui.components.IncomeExpensePieChart
 import com.example.budgettrackerchallenge.ui.components.RecordSearchField
-import com.example.budgettrackerchallenge.ui.components.RecordsHeader
 import com.example.budgettrackerchallenge.ui.theme.BudgetTrackerChallengeTheme
 import com.example.budgettrackerchallenge.ui.theme.ExpenseRed
 import com.example.budgettrackerchallenge.ui.theme.IncomeGreen
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,6 +57,7 @@ fun HomeScreen(
 
     var searchQuery by remember { mutableStateOf("") }
     var filter by remember { mutableStateOf<TransactionType?>(null) }
+    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
     val filteredRecords = records
         .filter { record ->
@@ -67,6 +69,9 @@ fun HomeScreen(
         }
         .filter { record ->
             record.description.contains(searchQuery, ignoreCase = true)
+        }
+        .filter { record ->
+            selectedDate?.let { record.date.toLocalDate() == it } ?: true
         }
 
     val uiState = remember(filteredRecords) {
@@ -140,7 +145,9 @@ fun HomeScreen(
 
                     RecordsHeader(
                         filter = filter,
-                        onFilterChange = { filter = it }
+                        onFilterChange = { filter = it },
+                        selectedDate = selectedDate,
+                        onDateSelected = { selectedDate = it }
                     )
 
                     RecordSearchField(query = searchQuery) { searchQuery = it }

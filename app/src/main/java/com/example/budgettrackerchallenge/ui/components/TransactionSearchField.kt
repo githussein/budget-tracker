@@ -39,7 +39,7 @@ fun RecordSearchField(
                 shape = RoundedCornerShape(12.dp)
             )
             .border(
-                width = 0.5.dp,
+                width = 1.dp,
                 color = Color.LightGray,
                 shape = RoundedCornerShape(12.dp)
             ),
