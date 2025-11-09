@@ -13,13 +13,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
 @OptIn(DelicateCoroutinesApi::class)
-@Singleton
-class TransactionRepositoryImpl @Inject constructor(
+class TransactionRepositoryImpl(
     private val dao: TransactionDao
 ) : ITransactionRepository {
 

@@ -4,14 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.budgettrackerchallenge.domain.model.TransactionRecord
 import com.example.budgettrackerchallenge.domain.repository.ITransactionRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class BudgetViewModel @Inject constructor(
+class BudgetViewModel(
     private val repository: ITransactionRepository
 ) : ViewModel(), IBudgetViewModel {
 

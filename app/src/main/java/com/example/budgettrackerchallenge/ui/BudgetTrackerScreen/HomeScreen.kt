@@ -28,7 +28,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.budgettrackerchallenge.domain.model.TransactionRecord
 import com.example.budgettrackerchallenge.domain.model.TransactionType
 import com.example.budgettrackerchallenge.ui.BudgetTrackerScreen.components.RecordsHeader
@@ -39,12 +38,13 @@ import com.example.budgettrackerchallenge.ui.components.RecordSearchField
 import com.example.budgettrackerchallenge.ui.theme.BudgetTrackerChallengeTheme
 import com.example.budgettrackerchallenge.ui.theme.ExpenseRed
 import com.example.budgettrackerchallenge.ui.theme.IncomeGreen
+import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    viewModel: IBudgetViewModel = hiltViewModel<BudgetViewModel>()
+    viewModel: IBudgetViewModel = koinViewModel<BudgetViewModel>()
 ) {
     val records by viewModel.records.collectAsState()
     val totalBudget by viewModel.totalBudget.collectAsState()
