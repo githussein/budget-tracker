@@ -4,7 +4,7 @@
 [![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-UI-blue)](https://developer.android.com/jetpack/compose)
 [![MVVM](https://img.shields.io/badge/Architecture-MVVM-brightgreen)](https://developer.android.com/jetpack/architecture)
 [![Room](https://img.shields.io/badge/Room-Database-lightgrey)](https://developer.android.com/training/data-storage/room)
-[![Hilt](https://img.shields.io/badge/Hilt-DI-purple)](https://developer.android.com/training/dependency-injection/hilt)
+[![Koin](https://img.shields.io/badge/Koin-DI-purple)](https://insert-koin.io/)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ---
@@ -14,6 +14,14 @@
 Budget Tracker is an Android app to track daily **income** and **expenses**.  
 
 <img src="app/src/main/res/img.png" alt="Home Screen" width="300"/>
+
+---
+
+## What's New?
+
+1️⃣ Migrating from Hilt → Koin
+2️⃣ Adding a custom app icon
+3️⃣ Implementing a modern splash screen
 
 ---
 
@@ -33,7 +41,7 @@ Budget Tracker is an Android app to track daily **income** and **expenses**.
 - **Language:** Kotlin  
 - **UI:** Jetpack Compose  
 - **Architecture:** MVVM  
-- **Dependency Injection:** Hilt  
+- **Dependency Injection:** Koin  
 - **Database:** Room  
 - **Asynchronous:** Kotlin Coroutines & Flow  
 - **Testing:** JUnit, kotlinx-coroutines-test  
@@ -55,7 +63,7 @@ Budget Tracker is an Android app to track daily **income** and **expenses**.
   - `components/` → Reusable composables (TransactionListItem, BudgetTopBar, etc.)  
   - `utils/` → Extensions (currency, date formatting)  
 
-- `di/` → Hilt modules
+- `di/` → Koin Modules
 
 ---
 
@@ -73,10 +81,11 @@ git clone https://github.com/githussein/BudgetTrackerChallenge.git
 - Kotlin + Jetpack Compose
 
 3. **Key plugins and libraries used:**  
-- Dagger Hilt for Dependency Injection  
+- Koin for Dependency Injection  
 - Room for local database  
 - Jetpack Compose for UI  
 - Kotlin Symbol Processing (KSP)
+- AndroidX SplashScreen API
 
-All necessary dependencies are managed in the `build.gradle` file. Modernbuild files approaches like toml, ksp, and kotlin dsl are adopted in this project.
+All necessary dependencies are managed in the `build.gradle` file. Modern build-files approaches like toml, ksp, and Kotlin DSL are adopted in this project.
 
