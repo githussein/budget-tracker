@@ -69,4 +69,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp (libs.androidx.room.compiler)
+    // MockK
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("io.mockk:mockk-agent-jvm:1.13.8")
 }
